@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Rock Paper Scissors Game  </title>
+    </head>
+    <body>
+        <script>
+
+                var playerPts = 0;
+                var computerPts = 0;
+
+            //plays a five round game, prompts user for input, keeps score
+
+            while (playerPts < 5 && computerPts < 5){
+                
+                
+                var playerSelection = prompt( "Choose Rock Paper or Scissors: ");
+                playerSelection = playerSelection.toLowerCase();
+
+                var computerSelection = computerPlay();
+                var hi = playRound(playerSelection, computerSelection);
+
+                if (hi === true)
+                playerPts++; 
+                else if (hi === false)
+                computerPts++;
+
+                console.log( "You have " + playerPts + " , the computer has " + computerPts);
+
+            }
+
+
+            // randomly generate rock, paper or scissors
+            function computerPlay(){
+                var numSelect = Math.floor((Math.random() * 3) + 1);
+                
+                let computerSelection = (numSelect == 1)? 'rock': 
+                (numSelect == 2)? 'paper':
+                'scissors';
+
+                return computerSelection;
+            }
+
+            //plays a single round of Rock Paper Scissors
+            function playRound(playerSelection, computerSelection) {
+                switch (computerSelection){
+                    case 'rock':
+                        var win = (playerSelection === 'rock')? 'tie' :
+                        (playerSelection === 'paper')? true:
+                        false;
+                        break;
+                    case 'paper':
+                        var win = (playerSelection === 'paper')? 'tie':
+                        (playerSelection === "scissors")? true:
+                        false;
+                        break;
+                    case 'scissors':
+                        var win = (playerSelection === "scissors")? 'tie':
+                        (playerSelection === 'rock')? true:
+                        false;
+                        break;
+                }
+                printMsg(playerSelection, computerSelection, win)
+                return win;
+            }
+
+            // prints win or lose and selections, and keeps and prints score
+            function printMsg (playerSelection, computerSelection, win){
+
+                if (win === true){
+                    console.log("You Win! " + playerSelection + " beats " + computerSelection);
+
+                }
+                else if (win === false){
+                    console.log( "You Lose! " + computerSelection + " beats " + playerSelection);
+
+                }
+                else{
+                    console.log ("It's a tie! You both chose " + playerSelection);
+                }
+
+            }
+
+        </script>
+    </body>
+
+</html>
