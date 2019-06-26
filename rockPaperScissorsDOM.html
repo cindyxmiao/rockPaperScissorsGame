@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Rock Paper Scissors Game  </title>
+        <link href = "style.css" type = "text/css" rel = "stylesheet">
+
+    </head>
+    <body>
+
+    <h1> Rock Paper Scissors Game!   </h1>
+    <div>
+        <button type = "button" id= "rock" >Rock</button>
+        <button type = "button" id = "paper"> Paper</button>
+        <button type = "button" id = "scissors"> Scissors</button>
+    </div>
+
+    <div id = "container"> 
+     
+    </div>
+
+
+
+        <script>
+
+                var playerPts = 0;
+                var computerPts = 0;
+
+            //adds event listener to buttons
+
+
+            const buttons = document.querySelectorAll('button');
+            var playerSelection;
+
+            buttons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    playerSelection = button.id;
+                    playGame(playerSelection);
+                });
+            });
+
+            function playGame(playerSelection){
+
+                var computerSelection = computerPlay();
+                var win = playRound(playerSelection, computerSelection);
+
+                const container = document.querySelector('#container');
+
+                if (win === true){
+                playerPts++; 
+                container.textContent = "You Win! You chose " + playerSelection + " and the computer chose " + computerSelection;
+                }
+                else if (win === false){
+                computerPts++;
+                container.textContent = "You Lose! You chose " + playerSelection + " and the computer chose " + computerSelection;
+                }
+                else {
+                container.textContent = "It's a tie! You both chose " + playerSelection;
+                }
+                
+                const score = document.createElement ('div');
+                score.textContent = "You have " + playerPts + " , the computer has " + computerPts;
+                container.appendChild(score);
+
+
+            }
+    
+
+
+            // randomly generate rock, paper or scissors
+            function computerPlay(){
+                var numSelect = Math.floor((Math.random() * 3) + 1);
+                
+                let computerSelection = (numSelect == 1)? 'rock': 
+                (numSelect == 2)? 'paper':
+                'scissors';
+
+                return computerSelection;
+            }
+
+            //plays a single round of Rock Paper Scissors
+            function playRound(playerSelection, computerSelection) {
+                switch (computerSelection){
+                    case 'rock':
+                        var win = (playerSelection === 'rock')? 'tie' :
+                        (playerSelection === 'paper')? true:
+                        false;
+                        break;
+                    case 'paper':
+                        var win = (playerSelection === 'paper')? 'tie':
+                        (playerSelection === "scissors")? true:
+                        false;
+                        break;
+                    case 'scissors':
+                        var win = (playerSelection === "scissors")? 'tie':
+                        (playerSelection === 'rock')? true:
+                        false;
+                        break;
+                }
+
+                return win;
+            }
+
+
+        </script>
+    </body>
+
+</html>
